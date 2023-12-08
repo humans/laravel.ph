@@ -24,6 +24,18 @@ class RegistrationController
     {
         $request->validate([
             'full_name' => ['required', 'max:255'],
+            'username' => [
+                'required',
+                'min:5',
+                'max:32',
+                Rule::unique('users', 'username'),
+                'regex:/^[a-z1-9_\.]+$/i',
+                function ($attribute, $value, $fail) {
+                    if (! preg_match('/^[a-z][a-z1-9_.]+/', $value)) {
+                        $fail('The username must start with a letter.');
+                    }
+                },
+            ],
             'email' => [
                 'required',
                 'email',
@@ -34,6 +46,10 @@ class RegistrationController
             'email.unique' => __('The email address [:email] has already been taken.', [
                 'email' => $request->input('email'),
             ]),
+            'username.unique' => __('The username [:username] has already been taken.', [
+                'username' => $request->input('username'),
+            ]),
+            'username.regex' => 'The username can only have alphanumeric characters, underscores, and periods. The username must start with a letter.',
         ]);
 
         User::create([

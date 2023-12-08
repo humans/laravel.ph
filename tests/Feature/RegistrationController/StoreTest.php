@@ -15,7 +15,7 @@ it('creates a new user', function () {
 
     register([
         'full_name'             => 'Some really long but valid full name',
-        'username'              => 'some.valid.username',
+        'username'              => 'some.valid.user_name123',
         'email'                 => 'this.is.a.valid.email@laravel.ph',
         'password'              => 'a safe and secure valid password 123 $$$ @',
         'password_confirmation' => 'a safe and secure valid password 123 $$$ @',
@@ -40,6 +40,9 @@ it('validates the data', function ($attribute, $value, $message) {
 })->with([
     'full_name is required'                      => ['full_name', null, 'The full name field is required.'],
     'full_name must be less than 255 characters' => ['full_name', Str::random(300), 'The full name field must not be greater than 255 characters.'],
+    'username is required'                       => ['username', null, 'The username field is required.'],
+    'username is at least 5 characters'          => ['username', 'smol', 'The username field must be at least 5 characters.'],
+    'username is less than 32 characters'        => ['username', Str::random(33), 'The username field must not be greater than 32 characters.'],
     'email is required'                          => ['email', null, 'The email field is required.'],
     'email is a valid email'                     => ['email', 'not an email', 'The email field must be a valid email address.'],
     'password is required'                       => ['password', null, 'The password field is required.'],
@@ -57,6 +60,43 @@ it('validates that the email address is unique', function () {
         'email' => 'The email address [existing.email@laravel.ph] has already been taken.',
     ]);
 });
+
+it('validates that the username is unique', function () {
+    User::factory()->create([
+        'username' => 'unique.username',
+    ]);
+
+    register([
+        'username' => 'unique.username',
+    ])->assertInvalid([
+        'username' => 'The username [unique.username] has already been taken.',
+    ]);
+});
+
+it("validates the username", function ($username) {
+    register([
+        'username' => $username
+    ])->assertInvalid([
+        'username' => 'The username can only have alphanumeric characters, underscores, and periods.',
+    ]);
+})->with([
+    'white space',
+    'dollar$sign',
+    'at@sign',
+    'da-sh',
+]);
+
+it("should validate that the first character is always a letter", function ($letter) {
+    register([
+        'username' => $letter.'valid.username',
+    ])->assertInvalid([
+        'username' => 'The username must start with a letter.',
+    ]);
+})->with([
+    '.',
+    '_',
+    '1',
+]);
 
 it('validates that the password is confirmed', function () {
     register([
