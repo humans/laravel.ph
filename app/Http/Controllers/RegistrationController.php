@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class RegistrationController
@@ -21,11 +22,19 @@ class RegistrationController
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'full_name' => ['required'],
-        //     'email' => ['required', 'email'],
-        //     'password' => Password::default(),
-        // ]);
+        $request->validate([
+            'full_name' => ['required', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+            ],
+            'password' => ['required', Password::default(), 'confirmed'],
+        ], [
+            'email.unique' => __('The email address [:email] has already been taken.', [
+                'email' => $request->input('email'),
+            ]),
+        ]);
 
         User::create([
             'full_name' => $request->input('full_name'),

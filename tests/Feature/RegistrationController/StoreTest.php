@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\RegistrationController;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use function Pest\Laravel\assertDatabaseCount;
-use function Pest\Laravel\assertDatabaseHas;
-use function PHPUnit\Framework\assertTrue;
+use Illuminate\Support\Str;
 
-it("creates a new user", function () {
+use function Pest\Laravel\assertDatabaseCount;
+
+it('creates a new user', function () {
     assertDatabaseCount('users', 0);
 
     register([
@@ -29,9 +31,50 @@ it("creates a new user", function () {
         ->toBeTrue();
 });
 
+it('validates the data', function ($attribute, $value, $message) {
+    register([
+        $attribute => $value,
+    ])->assertInvalid([
+        $attribute => $message,
+    ]);
+})->with([
+    'full_name is required'                      => ['full_name', null, 'The full name field is required.'],
+    'full_name must be less than 255 characters' => ['full_name', Str::random(300), 'The full name field must not be greater than 255 characters.'],
+    'email is required'                          => ['email', null, 'The email field is required.'],
+    'email is a valid email'                     => ['email', 'not an email', 'The email field must be a valid email address.'],
+    'password is required'                       => ['password', null, 'The password field is required.'],
+    'password is at least 8 characters'          => ['password', 'short', 'The password field must be at least 8 characters.'],
+]);
+
+it('validates that the email address is unique', function () {
+    User::factory()->create([
+        'email' => 'existing.email@laravel.ph',
+    ]);
+
+    register([
+        'email' => 'existing.email@laravel.ph',
+    ])->assertInvalid([
+        'email' => 'The email address [existing.email@laravel.ph] has already been taken.',
+    ]);
+});
+
+it('validates that the password is confirmed', function () {
+    register([
+        'password' => 'this is a valid secure p@ssword 123',
+        'password_confirmation' => 'not the same',
+    ])->assertInvalid([
+        'password' => 'The password field confirmation does not match.',
+    ]);
+});
+
 function register($attributes = [])
 {
     return test()->post(route('registration.store'), [
+        'full_name'             => 'Some Full Name',
+        'username'              => 'some.username',
+        'email'                 => 'some.email@laravel.ph',
+        'password'              => 'a secure valid password 123 $$$ @',
+        'password_confirmation' => 'a secure valid password 123 $$$ @',
         ...$attributes,
     ]);
 }

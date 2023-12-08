@@ -36,20 +36,20 @@ function submit() {
             <form :action="links.store_path" method="POST" @submit.prevent="submit" class="[ grid gap-6 mt-4 ]">
                 <CsrfField />
 
-                <Field id="full_name" label="Full Name">
-                    <Input type="text" v-model="form.full_name" />
+                <Field id="full_name" label="Full Name" :error="form.errors.full_name">
+                    <Input name="full_name" type="text" v-model="form.full_name" />
                 </Field>
 
-                <Field id="email" label="Email address">
-                    <Input type="text" v-model="form.email" />
+                <Field id="email" label="Email address" :error="form.errors.email">
+                    <Input name="email" type="text" v-model="form.email" />
                 </Field>
 
-                <Field id="password" label="Password">
-                    <Input type="password" v-model="form.password" />
+                <Field id="password" label="Password" :error="form.errors.password">
+                    <Input name="password" type="password" v-model="form.password" />
                 </Field>
 
                 <Field id="password_confirmation" label="Repeat your password">
-                    <Input type="text" v-model="form.password_confirmation" />
+                    <Input name="password_confirmation" type="password" v-model="form.password_confirmation" />
                 </Field>
 
                 <div class="[ flex justify-end mt-4 ]">
