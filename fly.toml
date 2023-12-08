@@ -26,6 +26,7 @@ console_command = "php /var/www/html/artisan tinker"
 [env]
   APP_NAME = "Laravel Philippines"
   APP_ENV = "production"
+  APP_URL = "https://laravel.ph"
   DB_CONNECTION = "mysql"
   DB_HOST = "ap-southeast.connect.psdb.cloud"
   DB_PORT = 3306
