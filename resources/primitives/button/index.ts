@@ -6,7 +6,7 @@ export { default as SubmitButton } from "./SubmitButton.vue"
 
 const LookOptions = {
     primary: "button--primary [ bg-stroke text-canvas ]",
-    neutral: "button--neutral [ text-muted ]",
+    neutral: "button--neutral [ text-muted bg-neutral-200/60 ]",
     outline: "button--outline [ bg-canvas border border-stroke/5 ]",
     danger: "button--danger [ bg-danger-canvas/40 text-danger-stroke transition duration-200 hover:bg-danger-canvas/80 ]",
     clear: "button--clear [ bg-transparent hocus:bg-neutral-100 ]",
