@@ -1,0 +1,41 @@
+# fly.toml app configuration file generated for laravelph on 2023-12-08T15:35:52+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "laravelph"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "sin"
+console_command = "php /var/www/html/artisan tinker"
+
+[[statics]]
+    guest_path = "/build"
+    url_prefix = "/build"
+
+[processes]
+  app = ""
+  cron = "cron -f"
+  worker = "php artisan queue:work"
+
+[build]
+  [build.args]
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.2"
+
+[env]
+  APP_NAME = "Laravel Philippines"
+  APP_ENV = "production"
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "info"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+  SESSION_DRIVER = "cookie"
+  SESSION_SECURE_COOKIE = "true"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
