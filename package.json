@@ -31,9 +31,12 @@
     },
     "dependencies": {
         "@floating-ui/dom": "^1.5.3",
+        "@inertiajs/vue3": "^1.0.14",
+        "@vueuse/core": "^10.7.0",
         "axios": "^1.6.1",
         "focus-trap-vue": "^4.0.3",
         "hotkeys-js": "^3.12.2",
-        "pinia": "^2.1.7"
+        "pinia": "^2.1.7",
+        "radix-vue": "^1.2.4"
     }
 }
