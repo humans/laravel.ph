@@ -1,0 +1,82 @@
+@layer base {
+    @define-mixin theme-light {
+        --color-black: 35 35 35;
+        --color-white: 255 255 255;
+
+        --color-neutral-50: 244 244 244;
+        --color-neutral-100: 236 236 236;
+        --color-neutral-200: 227 227 227;
+        --color-neutral-300: 209 213 219;
+        --color-neutral-400: 156 163 175;
+        --color-neutral-500: 107 114 128;
+        --color-neutral-600: 75 85 99;
+        --color-neutral-700: 55 65 81;
+        --color-neutral-800: 31 41 55;
+        --color-neutral-900: 17 24 39;
+
+        --color-accent-base: 74 153 233;
+        --color-accent-canvas: 239 244 252;
+        --color-accent-stroke: 31 94 178;
+
+        --color-canvas: var(--color-white);
+        --color-stroke: var(--color-black);
+        --color-muted: 104 104 104;
+        --color-placeholder: var(--color-neutral-700);
+
+        --color-danger-canvas: 251 230 229;
+        --color-danger-stroke: 220 38 38;
+    }
+
+    @define-mixin theme-dark {
+        --color-neutral-50: 9 9 11;
+        --color-neutral-100: 24 24 26;
+        --color-neutral-200: 39 39 42;
+        --color-neutral-300: 63 63 70;
+        --color-neutral-400: 82 82 91;
+        --color-neutral-500: 113 113 122;
+        --color-neutral-600: 161 161 170;
+        --color-neutral-700: 212 212 216;
+        --color-neutral-800: 228 228 231;
+        --color-neutral-900: 244 244 245;
+        --color-neutral-950: 250 250 250;
+
+        --color-black: var(--color-neutral-100);
+        --color-white: var(--color-neutral-900);
+
+        --color-accent-base: 14 115 251;
+        --color-accent-canvas: 1 42 95;
+        --color-accent-stroke: 80 136 255;
+
+        --color-canvas: 14 14 18;
+        --color-stroke: var(--color-white);
+        --color-muted: var(--color-neutral-600);
+        --color-placeholder: var(--color-neutral-500);
+        --color-danger-canvas: 185 28 28;
+        --color-danger-stroke: 254 202 202;
+    }
+}
+
+:root {
+    @mixin theme-light;
+}
+
+body.preflight--theme--light,
+body.theme--light {
+    @mixin theme-light;
+}
+
+body.preflight--theme--dark,
+body.theme--dark {
+    @mixin theme-dark;
+}
+
+body.preflight--theme--device,
+body.theme--device {
+    @media (prefers-color-scheme: light) {
+        @mixin theme-light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @mixin theme-dark;
+    }
+}
