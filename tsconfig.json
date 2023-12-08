@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "module": "esnext",
+        "strict": true,
+        "moduleResolution": "node",
+        "paths": {
+            "@/*": ["./resources/*"],
+            "@primitives/*": ["./resources/primitives/*"],
+            "@composables/*": ["./resources/composables/*"],
+            "@icons/*": ["./resources/icons/*"],
+            "@utils/*": ["./resources/utils/*"],
+            "$app/*": ["./resources/[app]/*"],
+            "$outside/*": ["./resources/[outside]/*"],
+            "$super/*": ["./resources/[super]/*"]
+        }
+    },
+    "include": [
+        "./resources/**/*.vue",
+        "./resources/**/*.ts",
+        "./resources/types/**/*.d.ts",
+        "./resources/pages/**/*"
+    ]
+}

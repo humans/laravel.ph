@@ -6,7 +6,8 @@ namespace App\Http\Controllers;
 
 class LandingPageController
 {
-    public function index()
+    public function __invoke()
     {
+        return inertia('landing');
     }
 }
