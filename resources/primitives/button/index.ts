@@ -17,6 +17,7 @@ const SizeOptions = {
     tiny: "button--tiny [ px-2 py-1 rounded text-xs font-medium ]",
     small: "button--small [ px-3 py-1.5 rounded text-sm font-medium tracking-tight ]",
     medium: "button--medium [ px-4 py-2 rounded text-sm font-medium tracking-tight ]",
+    large: "button--large [ px-6 py-2.5 rounded text-base font-medium tracking-tight ]",
     custom: "button--custom-size",
 }
 

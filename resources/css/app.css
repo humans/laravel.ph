@@ -2,3 +2,17 @@
 @import "tailwindcss/components.css";
 @import "tailwindcss/utilities.css";
 @import "base/theme.css";
+
+@layer utilities {
+    @supports (text-wrap: balance) {
+        .text-balance {
+            text-wrap: balance;
+        }
+    }
+
+    @supports (text-wrap: pretty) {
+        .text-pretty {
+            text-wrap: pretty;
+        }
+    }
+}
