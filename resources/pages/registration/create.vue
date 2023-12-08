@@ -15,6 +15,7 @@ const { links } = defineProps<Props>()
 const form = useForm({
     full_name: "",
     email: "",
+    username: "",
     password: "",
     password_confirmation: "",
 })
@@ -38,6 +39,10 @@ function submit() {
 
                 <Field id="full_name" label="Full Name" :error="form.errors.full_name">
                     <Input name="full_name" type="text" v-model="form.full_name" />
+                </Field>
+
+                <Field id="username" label="Username" :error="form.errors.username">
+                    <Input name="username" type="text" v-model="form.username" />
                 </Field>
 
                 <Field id="email" label="Email address" :error="form.errors.email">
