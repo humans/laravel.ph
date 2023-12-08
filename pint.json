@@ -1,0 +1,15 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "align_multiline_comment": true,
+        "binary_operator_spaces": false,
+        "object_operator_without_whitespace": false,
+        "concat_space": true,
+        "declare_strict_types": true,
+        "blank_line_after_opening_tag": true,
+        "blank_line_after_namespace": true,
+        "explicit_string_variable": true,
+        "protected_to_private": true,
+        "strict_comparison": true
+    }
+}
